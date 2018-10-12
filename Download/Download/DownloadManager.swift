@@ -44,8 +44,6 @@ class DownloadManager: NSObject {
     
     private var tasks: [String: URLSessionDataTask] = [String: URLSessionDataTask]()
     
-    private var downloadState: DownloadState = .default
-    
 }
 
 // MARK: public
@@ -122,7 +120,6 @@ extension DownloadManager {
             task.suspend()
             task.cancel()
             if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
-//                model.state(.failed)
                 model.states = .failed
                 model.stream?.close()
                 sessionModels.removeValue(forKey: "\(task.taskIdentifier)")
@@ -140,7 +137,6 @@ extension DownloadManager {
         tasks.removeAll()
         for (_, sessionModel) in sessionModels.values.enumerated() {
             sessionModel.stream?.close()
-//            sessionModel.state(.failed)
             sessionModel.states = .failed
         }
         sessionModels.removeAll()
@@ -190,6 +186,10 @@ extension DownloadManager {
     /// 获取总缓存大小 单位：字节
     func getCacheSize() -> Double {
         return DownloadHomeDirectory.dw_getCacheSize
+    }
+    
+    func updateDownloadingTaskState() {
+        cancelAllTask()
     }
 }
 
@@ -244,7 +244,6 @@ extension DownloadManager {
             if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
                 if runningModels.count < maxDownloadCount {
                     task.resume()
-                    // model.state(.start)
                     model.states = .start
                 } else {
                     model.states = .waiting
@@ -259,7 +258,6 @@ extension DownloadManager {
         if let task = getTask(url: url) {
             task.suspend()
             if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
-                //                model.state(.suspended)
                 model.states = .suspended
             }
         }
@@ -273,7 +271,6 @@ extension DownloadManager {
         }
         
         for (_, sessionModel) in sessionModels.values.enumerated() {
-            //            sessionModel.state(.suspended)
             sessionModel.states = .suspended
         }
         waitingTask()
@@ -330,11 +327,9 @@ extension DownloadManager: URLSessionTaskDelegate {
         
         if let _ = error {
             debugPrint("下载失败")
-//            model.state(.failed)
             model.states = .failed
         } else {
             debugPrint("下载完成")
-//            model.state(.completed)
             model.states = .completed
         }
         

@@ -18,6 +18,10 @@ class DownloadModel: NSObject {
     var states: DownloadState = .default {
         didSet {
             state(states)
+            model.state = states
+            if states != .waiting, let url = model.url {
+                save(url: url)
+            }
             NotificationCenter.default.post(name: DownloadStateChangeNotification, object: self)
         }
     }
@@ -52,6 +56,8 @@ class DownloadDescModel: Codable {
             NotificationCenter.default.post(name: DownloadProgressNotification, object: self)
         }
     }
+    
+    var state: DownloadState = .default
     
     var name: String?
 }

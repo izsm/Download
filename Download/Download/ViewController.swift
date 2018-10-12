@@ -108,7 +108,7 @@ class ViewController: UIViewController {
     private func addNotification() {
         // 进度通知
         NotificationCenter.default.addObserver(self, selector: #selector(downLoadProgress(notification:)), name: Notification.Name("DownloadProgressNotification"), object: nil)
-        // 状态改变通知
+//        // 状态改变通知
         NotificationCenter.default.addObserver(self, selector: #selector(downLoadStateChange(notification:)), name: Notification.Name("DownloadStateChangeNotification"), object: nil)
     }
     

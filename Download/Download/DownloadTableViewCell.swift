@@ -1,15 +1,15 @@
 //
-//  ViewTableViewCell.swift
+//  DownloadTableViewCell.swift
 //  Download
 //
-//  Created by 张书孟 on 2018/10/10.
+//  Created by 张书孟 on 2018/10/12.
 //  Copyright © 2018年 zsm. All rights reserved.
 //
 
 import UIKit
 
-class ViewTableViewCell: UITableViewCell {
-
+class DownloadTableViewCell: UITableViewCell {
+    
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel(frame: CGRect(x: 20, y: contentView.frame.size.height/2 - 20, width: 100, height: 40))
         nameLabel.textColor = UIColor.black
@@ -43,10 +43,8 @@ class ViewTableViewCell: UITableViewCell {
         self.model = model
         nameLabel.text = model.model.name
         
-        debugPrint(model.model.state)
-        
         if let url = model.model.url, let model1 = model.getDownloadModel(url: url) {
-            stateBtn.setTitle(state(state: model1.state), for: .normal)
+            stateBtn.setTitle(state(state: DownloadManager.default.isCompletion(url: url) ? .completed : model1.state), for: .normal)
             progressLabel.text = "\(model1.progress)"
         } else {
             progressLabel.text = "0.0"
@@ -56,8 +54,7 @@ class ViewTableViewCell: UITableViewCell {
     
     func updateView(model: DownloadDescModel) {
         progressLabel.text = "\(model.progress)"
-        stateBtn.setTitle(state(state: model.state), for: .normal)
-//        debugPrint("progress: \(model.progress) -- receivedSize: \(model.receivedSize) -- expectedSize: \(model.totalLength)")
+        debugPrint("progress: \(model.progress) -- receivedSize: \(model.receivedSize) -- expectedSize: \(model.totalLength)")
     }
     
     @objc private func stateBtnClick(sender: UIButton) {
@@ -89,7 +86,7 @@ class ViewTableViewCell: UITableViewCell {
     }
 }
 
-extension ViewTableViewCell {
+extension DownloadTableViewCell {
     
     private func addSubviews() {
         contentView.addSubview(nameLabel)

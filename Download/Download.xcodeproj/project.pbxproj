@@ -16,6 +16,7 @@
 		E1178F2C216C725000DAE65C /* CacheTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2B216C725000DAE65C /* CacheTools.swift */; };
 		E1178F2E216C783E00DAE65C /* DownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2D216C783E00DAE65C /* DownloadModel.swift */; };
 		E1178F30216C8BD200DAE65C /* Download+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2F216C8BD200DAE65C /* Download+Extension.swift */; };
+		E1451FA8217097A0005D3955 /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */; };
 		E1641761216D943700D56120 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641760216D943700D56120 /* DownloadManager.swift */; };
 		E1641765216DBA7C00D56120 /* ViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */; };
 		E1641767216E024700D56120 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641766216E024700D56120 /* DownloadViewController.swift */; };
@@ -34,6 +35,7 @@
 		E1178F2B216C725000DAE65C /* CacheTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTools.swift; sourceTree = "<group>"; };
 		E1178F2D216C783E00DAE65C /* DownloadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadModel.swift; sourceTree = "<group>"; };
 		E1178F2F216C8BD200DAE65C /* Download+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Download+Extension.swift"; sourceTree = "<group>"; };
+		E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
 		E1641760216D943700D56120 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTableViewCell.swift; sourceTree = "<group>"; };
 		E1641766216E024700D56120 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				E1178F1B216C3A8200DAE65C /* ViewController.swift */,
 				E1641766216E024700D56120 /* DownloadViewController.swift */,
 				E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */,
+				E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */,
 				E1641760216D943700D56120 /* DownloadManager.swift */,
 				E1178F2D216C783E00DAE65C /* DownloadModel.swift */,
 				E1178F2B216C725000DAE65C /* CacheTools.swift */,
@@ -231,6 +234,7 @@
 				E1641761216D943700D56120 /* DownloadManager.swift in Sources */,
 				E1178F30216C8BD200DAE65C /* Download+Extension.swift in Sources */,
 				E1641767216E024700D56120 /* DownloadViewController.swift in Sources */,
+				E1451FA8217097A0005D3955 /* DownloadTableViewCell.swift in Sources */,
 				E1178F1A216C3A8200DAE65C /* AppDelegate.swift in Sources */,
 				E1178F2C216C725000DAE65C /* CacheTools.swift in Sources */,
 				E1178F2E216C783E00DAE65C /* DownloadModel.swift in Sources */,

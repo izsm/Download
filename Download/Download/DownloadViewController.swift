@@ -15,7 +15,7 @@ class DownloadViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 100
-        tableView.register(ViewTableViewCell.self, forCellReuseIdentifier: "ViewTableViewCell")
+        tableView.register(DownloadTableViewCell.self, forCellReuseIdentifier: "DownloadTableViewCell")
         return tableView
     }()
     
@@ -46,7 +46,7 @@ class DownloadViewController: UIViewController {
                 if model.url == descModel.model.url {
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
-                        if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ViewTableViewCell {
+                        if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? DownloadTableViewCell {
                             cell.updateView(model: model)
                         }
                     }
@@ -84,6 +84,7 @@ extension DownloadViewController {
     }
     
     @objc private func cancelClick() {
+        NotificationCenter.default.removeObserver(self)
         DownloadManager.default.deleteAllFile()
         loadData()
     }
@@ -96,7 +97,7 @@ extension DownloadViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ViewTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ViewTableViewCell") as! ViewTableViewCell
+        let cell: DownloadTableViewCell = tableView.dequeueReusableCell(withIdentifier: "DownloadTableViewCell") as! DownloadTableViewCell
         cell.update(model: dataSource[indexPath.row])
         return cell
     }
