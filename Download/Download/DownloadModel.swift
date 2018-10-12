@@ -41,8 +41,12 @@ class DownloadModel: NSObject {
 }
 
 class DownloadDescModel: Codable {
-    var totalLength: Int? /// 获得服务器这次请求 返回数据的总长度
     var url: String? /// 下载地址
+    
+    var totalLength: Int = 0 /// 获得服务器这次请求 返回数据的总长度
+    var receivedSize: Int = 0 /// 已经下载的长度
+    
+    /// 下载进度
     var progress: Double = 0.0 {
         didSet {
             NotificationCenter.default.post(name: DownloadProgressNotification, object: self)

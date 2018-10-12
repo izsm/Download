@@ -23,16 +23,19 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        dataSource.removeAll()
+        loadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        DownloadManager.default.cancelAllTask()
+//        DownloadManager.default.cancelAllTask()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DownloadManager.default.maxDownloadCount = 1
         
         addNotification()
         
@@ -112,6 +115,7 @@ class ViewController: UIViewController {
     @objc private func nextClick() {
         navigationController?.pushViewController(DownloadViewController(), animated: true)
     }
+    
     @objc private func cancelClick() {
         DownloadManager.default.cancelAllTask()
     }

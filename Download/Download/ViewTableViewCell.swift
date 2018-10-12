@@ -54,6 +54,7 @@ class ViewTableViewCell: UITableViewCell {
     
     func updateView(model: DownloadDescModel) {
         progressLabel.text = "\(model.progress)"
+        debugPrint("progress: \(model.progress) -- receivedSize: \(model.receivedSize) -- expectedSize: \(model.totalLength)")
     }
     
     @objc private func stateBtnClick(sender: UIButton) {
@@ -62,11 +63,7 @@ class ViewTableViewCell: UITableViewCell {
             return
         }
         
-        DownloadManager.default.download(model: downloadModel, progress: { (progress, receivedSize, expectedSize) in
-            debugPrint("progress: \(progress) -- receivedSize: \(receivedSize) -- expectedSize: \(expectedSize)")
-
-        }) { (state) in
-        }
+        DownloadManager.default.download(model: downloadModel)
     }
     
     private func state(state: DownloadState) -> String {

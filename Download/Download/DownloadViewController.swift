@@ -23,7 +23,7 @@ class DownloadViewController: UIViewController {
     
     deinit {
         debugPrint("deinit - DownloadViewController")
-        DownloadManager.default.cancelAllTask()
+//        DownloadManager.default.cancelAllTask()
     }
     
     override func viewDidLoad() {
