@@ -30,10 +30,12 @@ class DownloadManager: NSObject {
 
     static let `default` = DownloadManager()
     
+    private let maxDownloadCount: Int = 3
+    
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.background(withIdentifier: "DownloadBackgroundSessionIdentifier")
         let queue = OperationQueue()
-//        queue.maxConcurrentOperationCount = 1
+        queue.maxConcurrentOperationCount = 1
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: queue)
         return session
     }()
@@ -58,14 +60,14 @@ extension DownloadManager {
         return sessionModels["\(taskIdentifier)"]
     }
     
-    /// 开始下载
-    private func start(url: String) {
-        guard url.dw_isURL else { return }
-        if let task = getTask(url: url) {
-            task.resume()
-            if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
-//                model.state(.start)
-                model.states = .start
+    private func waitingTask() {
+        let waitingModel = sessionModels.filter { (key, value) -> Bool in
+            return value.states == .waiting
+        }
+        if let sessionModel = waitingModel.first {
+            let model = sessionModel.value
+            if let url = model.model.url {
+                start(url: url)
             }
         }
     }
@@ -76,7 +78,32 @@ extension DownloadManager {
             if task.state == .running {
                 pause(url: url)
             } else {
-                start(url: url)
+                if let model = getSessionModel(taskIdentifier: task.taskIdentifier), model.states == .waiting {
+                    model.states = .suspended
+                } else {
+                  start(url: url)
+                }
+            }
+        }
+    }
+    
+    /// 开始下载
+    private func start(url: String) {
+        guard url.dw_isURL else { return }
+        if let task = getTask(url: url) {
+            
+            let runningModels = sessionModels.filter { (key, value) -> Bool in
+                return value.states == .start
+            }
+            
+            if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
+                if runningModels.count < maxDownloadCount {
+                    task.resume()
+                    // model.state(.start)
+                    model.states = .start
+                } else {
+                    model.states = .waiting
+                }
             }
         }
     }
@@ -91,6 +118,7 @@ extension DownloadManager {
                 model.states = .suspended
             }
         }
+        waitingTask()
     }
     
     /// 暂停所有任务
@@ -103,6 +131,7 @@ extension DownloadManager {
 //            sessionModel.state(.suspended)
             sessionModel.states = .suspended
         }
+        waitingTask()
     }
     
     /// 创建缓存路径
@@ -177,6 +206,7 @@ extension DownloadManager {
         model.stream = stream
         model.download = progress
         model.state = state
+        model.states = .waiting
         sessionModels["\(taskIdentifier)"] = model
         
         start(url: url)
@@ -308,6 +338,8 @@ extension DownloadManager: URLSessionTaskDelegate {
         // 清除任务
         tasks.removeValue(forKey: url.dw_getFileName)
         sessionModels.removeValue(forKey: "\(task.taskIdentifier)")
+        
+        waitingTask()
     }
 }
 

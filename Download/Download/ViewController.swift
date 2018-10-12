@@ -85,9 +85,9 @@ class ViewController: UIViewController {
         model9.model.name = "测试9"
         model9.model.url = "http://qunying.jb51.net:81/201710/books/iOS11Swift4_jb51.rar"
         
-        let model10 = DownloadModel()
-        model10.model.name = "测试10"
-        model10.model.url = "http://www.hangge.com/blog_uploads/201709/2017091219324377713.zip"
+//        let model10 = DownloadModel()
+//        model10.model.name = "测试10"
+//        model10.model.url = "http://www.hangge.com/blog_uploads/201709/2017091219324377713.zip"
         
         dataSource.append(model1)
         dataSource.append(model2)
@@ -98,7 +98,7 @@ class ViewController: UIViewController {
         dataSource.append(model7)
         dataSource.append(model8)
         dataSource.append(model9)
-        dataSource.append(model10)
+//        dataSource.append(model10)
         tableView.reloadData()
     }
     
