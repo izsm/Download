@@ -8,23 +8,11 @@
 //
 
 import Foundation
-import CommonCrypto
+import Cache
 
 public extension String {
     var dw_MD5String: String {
-        let cStrl = cString(using: .utf8)
-        let strLen = CUnsignedInt(self.lengthOfBytes(using: .utf8))
-        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        
-        let buffer = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-        CC_MD5(cStrl, strLen, buffer)
-        var md5String = ""
-        for idx in 0..<digestLen {
-            let obcStrl = String.init(format: "%02x", buffer[idx])
-            md5String.append(obcStrl)
-        }
-        free(buffer)
-        return md5String
+        return MD5(self)
     }
 }
 

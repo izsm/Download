@@ -106,7 +106,7 @@ extension DownloadManager {
         }
     }
     
-    /// 取消/暂停任务
+    /// 根据url取消/暂停任务
     func cancelTask(url: String) {
         guard url.dw_isURL else { return }
         if let task = getTask(url: url) {
