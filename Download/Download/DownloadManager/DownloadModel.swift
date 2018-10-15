@@ -34,15 +34,15 @@ class DownloadModel: NSObject {
     var model: DownloadDescModel = DownloadDescModel()
     
     func getDownloadModel(url: String) -> DownloadDescModel? {
-        return CacheTools<DownloadDescModel>().object(forKey: url)
+        return DownloadCache<DownloadDescModel>().object(forKey: url)
     }
     
     func save(url: String, descModel: DownloadDescModel) {
-        CacheTools<DownloadDescModel>().setObject(object: descModel, forKey: url)
+        DownloadCache<DownloadDescModel>().setObject(object: descModel, forKey: url)
     }
     
     func delete(url: String) {
-        CacheTools<DownloadDescModel>().removeObiect(forKey: url)
+        DownloadCache<DownloadDescModel>().removeObiect(forKey: url)
     }
 }
 

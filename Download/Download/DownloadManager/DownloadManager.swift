@@ -373,7 +373,6 @@ extension DownloadManager: URLSessionDataDelegate {
         
         model.save(url: url, descModel: model.model)
         
-        
         // 接收这个请求，允许接收服务器的数据
         completionHandler(.allow)
     }

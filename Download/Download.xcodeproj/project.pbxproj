@@ -13,13 +13,13 @@
 		E1178F1F216C3A8200DAE65C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1178F1D216C3A8200DAE65C /* Main.storyboard */; };
 		E1178F21216C3A8300DAE65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1178F20216C3A8300DAE65C /* Assets.xcassets */; };
 		E1178F24216C3A8300DAE65C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1178F22216C3A8300DAE65C /* LaunchScreen.storyboard */; };
-		E1178F2C216C725000DAE65C /* CacheTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2B216C725000DAE65C /* CacheTools.swift */; };
-		E1178F2E216C783E00DAE65C /* DownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2D216C783E00DAE65C /* DownloadModel.swift */; };
-		E1178F30216C8BD200DAE65C /* Download+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178F2F216C8BD200DAE65C /* Download+Extension.swift */; };
-		E1451FA8217097A0005D3955 /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */; };
-		E1641761216D943700D56120 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641760216D943700D56120 /* DownloadManager.swift */; };
 		E1641765216DBA7C00D56120 /* ViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */; };
 		E1641767216E024700D56120 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1641766216E024700D56120 /* DownloadViewController.swift */; };
+		E1770A7E21747F88008464AB /* Download+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1770A7A21747F87008464AB /* Download+Extension.swift */; };
+		E1770A7F21747F88008464AB /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1770A7B21747F87008464AB /* DownloadManager.swift */; };
+		E1770A8021747F88008464AB /* DownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1770A7C21747F87008464AB /* DownloadModel.swift */; };
+		E1770A8221747FB4008464AB /* DownloadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1770A8121747FB4008464AB /* DownloadCache.swift */; };
+		E1770A84217480B1008464AB /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1770A83217480B1008464AB /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,13 +32,13 @@
 		E1178F20216C3A8300DAE65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1178F23216C3A8300DAE65C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1178F25216C3A8300DAE65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1178F2B216C725000DAE65C /* CacheTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTools.swift; sourceTree = "<group>"; };
-		E1178F2D216C783E00DAE65C /* DownloadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadModel.swift; sourceTree = "<group>"; };
-		E1178F2F216C8BD200DAE65C /* Download+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Download+Extension.swift"; sourceTree = "<group>"; };
-		E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
-		E1641760216D943700D56120 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTableViewCell.swift; sourceTree = "<group>"; };
 		E1641766216E024700D56120 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		E1770A7A21747F87008464AB /* Download+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Download+Extension.swift"; sourceTree = "<group>"; };
+		E1770A7B21747F87008464AB /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		E1770A7C21747F87008464AB /* DownloadModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadModel.swift; sourceTree = "<group>"; };
+		E1770A8121747FB4008464AB /* DownloadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCache.swift; sourceTree = "<group>"; };
+		E1770A83217480B1008464AB /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		F3E4DE8AADD67D80CE4BB10C /* Pods-Download.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Download.release.xcconfig"; path = "Target Support Files/Pods-Download/Pods-Download.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,21 +92,29 @@
 		E1178F18216C3A8200DAE65C /* Download */ = {
 			isa = PBXGroup;
 			children = (
+				E1770A7821747F87008464AB /* DownloadManager */,
 				E1178F19216C3A8200DAE65C /* AppDelegate.swift */,
 				E1178F1B216C3A8200DAE65C /* ViewController.swift */,
 				E1641766216E024700D56120 /* DownloadViewController.swift */,
 				E1641764216DBA7C00D56120 /* ViewTableViewCell.swift */,
-				E1451FA7217097A0005D3955 /* DownloadTableViewCell.swift */,
-				E1641760216D943700D56120 /* DownloadManager.swift */,
-				E1178F2D216C783E00DAE65C /* DownloadModel.swift */,
-				E1178F2B216C725000DAE65C /* CacheTools.swift */,
-				E1178F2F216C8BD200DAE65C /* Download+Extension.swift */,
+				E1770A83217480B1008464AB /* ProgressView.swift */,
 				E1178F1D216C3A8200DAE65C /* Main.storyboard */,
 				E1178F20216C3A8300DAE65C /* Assets.xcassets */,
 				E1178F22216C3A8300DAE65C /* LaunchScreen.storyboard */,
 				E1178F25216C3A8300DAE65C /* Info.plist */,
 			);
 			path = Download;
+			sourceTree = "<group>";
+		};
+		E1770A7821747F87008464AB /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				E1770A7B21747F87008464AB /* DownloadManager.swift */,
+				E1770A7C21747F87008464AB /* DownloadModel.swift */,
+				E1770A8121747FB4008464AB /* DownloadCache.swift */,
+				E1770A7A21747F87008464AB /* Download+Extension.swift */,
+			);
+			path = DownloadManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +219,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Download/Pods-Download-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -218,6 +227,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -233,13 +243,13 @@
 			files = (
 				E1641765216DBA7C00D56120 /* ViewTableViewCell.swift in Sources */,
 				E1178F1C216C3A8200DAE65C /* ViewController.swift in Sources */,
-				E1641761216D943700D56120 /* DownloadManager.swift in Sources */,
-				E1178F30216C8BD200DAE65C /* Download+Extension.swift in Sources */,
+				E1770A7F21747F88008464AB /* DownloadManager.swift in Sources */,
+				E1770A8221747FB4008464AB /* DownloadCache.swift in Sources */,
 				E1641767216E024700D56120 /* DownloadViewController.swift in Sources */,
-				E1451FA8217097A0005D3955 /* DownloadTableViewCell.swift in Sources */,
+				E1770A8021747F88008464AB /* DownloadModel.swift in Sources */,
+				E1770A7E21747F88008464AB /* Download+Extension.swift in Sources */,
+				E1770A84217480B1008464AB /* ProgressView.swift in Sources */,
 				E1178F1A216C3A8200DAE65C /* AppDelegate.swift in Sources */,
-				E1178F2C216C725000DAE65C /* CacheTools.swift in Sources */,
-				E1178F2E216C783E00DAE65C /* DownloadModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

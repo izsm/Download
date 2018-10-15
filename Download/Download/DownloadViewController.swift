@@ -124,7 +124,7 @@ extension DownloadViewController: UITableViewDelegate, UITableViewDataSource {
         let model = dataSource[indexPath.row]
         let deleteRowAction: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "删除") { [weak self] (action, index) in
             guard let `self` = self else { return }
-            /// 删除时先移除通知再注册通知（防止删除时导致进度和状态错乱）
+            /// 删除时先移除通知再注册通知（防止数据改变导致进度和状态错乱）
             NotificationCenter.default.removeObserver(self)
             DownloadManager.default.deleteFile(url: model.model.url!)
             self.loadData()
