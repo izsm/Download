@@ -86,16 +86,6 @@ extension DownloadManager {
         start(url: url)
     }
     
-    /// 开启下载
-    public func download(model: DownloadModel,
-                         progress: @escaping (Double, Int, Int) -> Void,
-                         state: @escaping (DownloadState) -> Void) {
-        
-        model.state = state
-        model.download = progress
-        download(model: model)
-    }
-    
     /// 判断该文件是否下载完成
     func isCompletion(url: String) -> Bool {
         guard url.dw_isURL else { return false }
@@ -390,7 +380,6 @@ extension DownloadManager: URLSessionDataDelegate {
         let expectedSize = model.model.totalLength
         let progress: Double = Double(receivedSize) / Double(expectedSize)
         
-        model.download(progress, receivedSize, expectedSize)
         model.model.progress = progress
         model.model.receivedSize = receivedSize
         model.save(url: url, descModel: model.model)

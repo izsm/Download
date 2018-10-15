@@ -17,7 +17,6 @@ class DownloadModel: NSObject {
     
     var states: DownloadState = .default {
         didSet {
-            state(states)
             model.state = states
             if let url = model.url {
                 if let proModel = getDownloadModel(url: url) {
@@ -27,9 +26,6 @@ class DownloadModel: NSObject {
             }
         }
     }
-    
-    var state: (DownloadState) -> Void = { _ in } /// 下载状态
-    var download: (Double, Int, Int) -> Void = { _, _, _ in}
     
     var model: DownloadDescModel = DownloadDescModel()
     
