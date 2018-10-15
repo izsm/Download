@@ -35,14 +35,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DownloadManager.default.maxDownloadCount = 1
-        
         addNotification()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelClick))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "下载管理", style: .plain, target: self, action: #selector(nextClick))
-        
-        debugPrint(DownloadManager.default.getCacheSize())
         
         debugPrint(NSHomeDirectory())
         
@@ -107,17 +102,13 @@ class ViewController: UIViewController {
     
     private func addNotification() {
         // 进度通知
-        NotificationCenter.default.addObserver(self, selector: #selector(downLoadProgress(notification:)), name: Notification.Name("DownloadProgressNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downLoadProgress(notification:)), name: DownloadProgressNotification, object: nil)
 //        // 状态改变通知
-        NotificationCenter.default.addObserver(self, selector: #selector(downLoadStateChange(notification:)), name: Notification.Name("DownloadStateChangeNotification"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(downLoadStateChange(notification:)), name: DownloadStateChangeNotification, object: nil)
     }
     
     @objc private func nextClick() {
         navigationController?.pushViewController(DownloadViewController(), animated: true)
-    }
-    
-    @objc private func cancelClick() {
-        DownloadManager.default.cancelAllTask()
     }
     
     @objc private func downLoadProgress(notification: Notification) {
@@ -135,19 +126,19 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func downLoadStateChange(notification: Notification) {
-        if let model = notification.object as? DownloadModel {
-            for (index, downloadModel) in dataSource.enumerated() {
-                if model.model.url == downloadModel.model.url {
-                    dataSource[index] = downloadModel
-                    DispatchQueue.main.async { [weak self] in
-                        guard let `self` = self else { return }
-                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-                    }
-                }
-            }
-        }
-    }
+//    @objc private func downLoadStateChange(notification: Notification) {
+//        if let model = notification.object as? DownloadModel {
+//            for (index, downloadModel) in dataSource.enumerated() {
+//                if model.model.url == downloadModel.model.url {
+//                    dataSource[index] = downloadModel
+//                    DispatchQueue.main.async { [weak self] in
+//                        guard let `self` = self else { return }
+//                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {

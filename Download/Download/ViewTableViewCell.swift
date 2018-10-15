@@ -43,8 +43,6 @@ class ViewTableViewCell: UITableViewCell {
         self.model = model
         nameLabel.text = model.model.name
         
-        debugPrint(model.model.state)
-        
         if let url = model.model.url, let model1 = model.getDownloadModel(url: url) {
             stateBtn.setTitle(state(state: model1.state), for: .normal)
             progressLabel.text = "\(model1.progress)"

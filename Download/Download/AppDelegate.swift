@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
         
+        DownloadManager.default.maxDownloadCount = 3
+        DownloadManager.default.updateDownloadingStateWithSuspended()
+        
         return true
     }
 
@@ -31,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         debugPrint("杀死程序")
-        DownloadManager.default.updateDownloadingTaskState()
     }
 }
 

@@ -53,7 +53,7 @@ extension DownloadManager {
     public func download(model: DownloadModel) {
         guard let url = model.model.url, url.dw_isURL else { return }
         
-        guard !isCompletion(url: url) else {
+        if isExistence(url: url), isCompletion(url: url) {
             return
         }
         
@@ -81,8 +81,9 @@ extension DownloadManager {
         model.states = .waiting
         sessionModels["\(taskIdentifier)"] = model
         
-        start(url: url)
+        save(url: url)
         
+        start(url: url)
     }
     
     /// 开启下载
@@ -107,28 +108,31 @@ extension DownloadManager {
     
     /// 判断该文件是否存在
     func isExistence(url: String) -> Bool {
-        if let _ = DownloadModel().getDownloadModel(url: url) {
-            return true
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: DownloadCachePath)
+            return files.contains(url.dw_getFileName)
+        } catch {
+            return false
         }
-        return false
     }
     
-    /// 取消任务
+    /// 取消/暂停任务
     func cancelTask(url: String) {
         guard url.dw_isURL else { return }
         if let task = getTask(url: url) {
             task.suspend()
             task.cancel()
             if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
-                model.states = .failed
+                model.states = .suspended
                 model.stream?.close()
                 sessionModels.removeValue(forKey: "\(task.taskIdentifier)")
                 tasks.removeValue(forKey: url.dw_getFileName)
             }
+            waitingTask()
         }
     }
     
-    /// 取消所有任务
+    /// 取消/暂停所有任务
     func cancelAllTask() {
         for (_, task) in tasks.values.enumerated() {
             task.suspend()
@@ -137,7 +141,7 @@ extension DownloadManager {
         tasks.removeAll()
         for (_, sessionModel) in sessionModels.values.enumerated() {
             sessionModel.stream?.close()
-            sessionModel.states = .failed
+            sessionModel.states = .suspended
         }
         sessionModels.removeAll()
     }
@@ -167,7 +171,7 @@ extension DownloadManager {
         } catch {}
     }
     
-    /// 获取已下载的数据
+    /// 获取下载的数据
     func getDownloadModels() -> [DownloadModel] {
         let urls: NSMutableArray = NSMutableArray(contentsOfFile: DownloadCacheURLPath) ?? NSMutableArray()
         var models = [DownloadModel]()
@@ -183,13 +187,44 @@ extension DownloadManager {
         return models
     }
     
+    /// 获取下载完成的数据
+    func getDownloadFinishModels() -> [DownloadModel] {
+        let models = getDownloadModels().filter {
+            return $0.model.state == .completed
+        }
+        return models
+    }
+    
+    /// 获取未下载完成的数据
+    func getDownloadingModel() -> [DownloadModel] {
+        let models = getDownloadModels().filter {
+            return $0.model.state != .completed
+        }
+        return models
+    }
+    
+    /// 将未完成的下载状态改为.suspended
+    func updateDownloadingStateWithSuspended() {
+        for model in getDownloadingModel() {
+            if let url = model.model.url {
+                model.model.state = .suspended
+                DownloadModel().save(url: url, descModel: model.model)
+            }
+        }
+    }
+    
+    /// 开启未完成的下载
+    func updateDownloading() {
+        for model in getDownloadingModel() {
+            if model.model.state != .start, model.model.state != .waiting {
+                DownloadManager.default.download(model: model)
+            }
+        }
+    }
+    
     /// 获取总缓存大小 单位：字节
     func getCacheSize() -> Double {
         return DownloadHomeDirectory.dw_getCacheSize
-    }
-    
-    func updateDownloadingTaskState() {
-        cancelAllTask()
     }
 }
 
@@ -221,7 +256,7 @@ extension DownloadManager {
         guard url.dw_isURL else { return }
         if let task = getTask(url: url) {
             if task.state == .running {
-                pause(url: url)
+                cancelTask(url: url)
             } else {
                 if let model = getSessionModel(taskIdentifier: task.taskIdentifier), model.states == .waiting {
                     model.states = .suspended
@@ -250,30 +285,6 @@ extension DownloadManager {
                 }
             }
         }
-    }
-    
-    /// 暂停下载
-    private func pause(url: String) {
-        guard url.dw_isURL else { return }
-        if let task = getTask(url: url) {
-            task.suspend()
-            if let model = getSessionModel(taskIdentifier: task.taskIdentifier) {
-                model.states = .suspended
-            }
-        }
-        waitingTask()
-    }
-    
-    /// 暂停所有任务
-    private func suspendAllTasks() {
-        for (_, task) in tasks.values.enumerated() {
-            task.suspend()
-        }
-        
-        for (_, sessionModel) in sessionModels.values.enumerated() {
-            sessionModel.states = .suspended
-        }
-        waitingTask()
     }
     
     /// 创建缓存路径
@@ -325,9 +336,11 @@ extension DownloadManager: URLSessionTaskDelegate {
             let url = model.model.url,
             url.dw_isURL else { return }
         
-        if let _ = error {
-            debugPrint("下载失败")
-            model.states = .failed
+        if let error = error {
+            if model.states != .suspended && error.localizedDescription != "The request timed out." {
+                debugPrint("下载失败")
+                model.states = .failed
+            }
         } else {
             debugPrint("下载完成")
             model.states = .completed
@@ -358,8 +371,8 @@ extension DownloadManager: URLSessionDataDelegate {
         // 获得服务器这次请求 返回数据的总长度
         model.model.totalLength = Int(response.expectedContentLength) + getDownloadSize(url: url)
         
-        model.save(url: url)
-        save(url: url)
+        model.save(url: url, descModel: model.model)
+        
         
         // 接收这个请求，允许接收服务器的数据
         completionHandler(.allow)
@@ -381,6 +394,6 @@ extension DownloadManager: URLSessionDataDelegate {
         model.download(progress, receivedSize, expectedSize)
         model.model.progress = progress
         model.model.receivedSize = receivedSize
-        model.save(url: url)
+        model.save(url: url, descModel: model.model)
     }
 }

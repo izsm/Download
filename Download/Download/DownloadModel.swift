@@ -8,7 +8,7 @@
 
 import UIKit
 
-let DownloadStateChangeNotification: Notification.Name = Notification.Name("DownloadStateChangeNotification")
+/// 进度通知
 let DownloadProgressNotification: Notification.Name = Notification.Name("DownloadProgressNotification")
 
 class DownloadModel: NSObject {
@@ -19,10 +19,12 @@ class DownloadModel: NSObject {
         didSet {
             state(states)
             model.state = states
-            if states != .waiting, let url = model.url {
-                save(url: url)
+            if let url = model.url {
+                if let proModel = getDownloadModel(url: url) {
+                    model.progress = proModel.progress
+                }
+                save(url: url, descModel: model)
             }
-            NotificationCenter.default.post(name: DownloadStateChangeNotification, object: self)
         }
     }
     
@@ -35,8 +37,8 @@ class DownloadModel: NSObject {
         return CacheTools<DownloadDescModel>().object(forKey: url)
     }
     
-    func save(url: String) {
-        CacheTools<DownloadDescModel>().setObject(object: model, forKey: url)
+    func save(url: String, descModel: DownloadDescModel) {
+        CacheTools<DownloadDescModel>().setObject(object: descModel, forKey: url)
     }
     
     func delete(url: String) {

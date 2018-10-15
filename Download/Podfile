@@ -4,5 +4,6 @@ target 'Download' do
 use_frameworks!
 
 pod 'Cache'
+pod 'MJRefresh'
 
 end

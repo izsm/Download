@@ -43,8 +43,16 @@ class DownloadTableViewCell: UITableViewCell {
         self.model = model
         nameLabel.text = model.model.name
         
+//        if let url = model.model.url, let model1 = model.getDownloadModel(url: url) {
+//            stateBtn.setTitle(state(state: DownloadManager.default.isCompletion(url: url) ? .completed : model1.state), for: .normal)
+//            progressLabel.text = "\(model1.progress)"
+//        } else {
+//            progressLabel.text = "0.0"
+//            stateBtn.setTitle(state(state: model.states), for: .normal)
+//        }
+        
         if let url = model.model.url, let model1 = model.getDownloadModel(url: url) {
-            stateBtn.setTitle(state(state: DownloadManager.default.isCompletion(url: url) ? .completed : model1.state), for: .normal)
+            stateBtn.setTitle(state(state: model1.state), for: .normal)
             progressLabel.text = "\(model1.progress)"
         } else {
             progressLabel.text = "0.0"
