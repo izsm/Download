@@ -83,10 +83,6 @@ class ViewController: UIViewController {
         model9.model.name = "测试9"
         model9.model.url = "http://qunying.jb51.net:81/201710/books/iOS11Swift4_jb51.rar"
         
-//        let model10 = DownloadModel()
-//        model10.model.name = "测试10"
-//        model10.model.url = "http://www.hangge.com/blog_uploads/201709/2017091219324377713.zip"
-        
         dataSource.append(model1)
         dataSource.append(model2)
         dataSource.append(model3)
@@ -103,8 +99,6 @@ class ViewController: UIViewController {
     private func addNotification() {
         // 进度通知
         NotificationCenter.default.addObserver(self, selector: #selector(downLoadProgress(notification:)), name: DownloadProgressNotification, object: nil)
-//        // 状态改变通知
-//        NotificationCenter.default.addObserver(self, selector: #selector(downLoadStateChange(notification:)), name: DownloadStateChangeNotification, object: nil)
     }
     
     @objc private func nextClick() {
@@ -125,20 +119,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-//    @objc private func downLoadStateChange(notification: Notification) {
-//        if let model = notification.object as? DownloadModel {
-//            for (index, downloadModel) in dataSource.enumerated() {
-//                if model.model.url == downloadModel.model.url {
-//                    dataSource[index] = downloadModel
-//                    DispatchQueue.main.async { [weak self] in
-//                        guard let `self` = self else { return }
-//                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
