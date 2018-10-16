@@ -60,7 +60,9 @@ private func addNotification() {
 
 ```
 #### 设置下载并发数，默认3：
+```
 DownloadManager.default.maxDownloadCount = 3
+```
 
 
 
