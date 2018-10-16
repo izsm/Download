@@ -3,7 +3,7 @@
 ### 演示：
 ![Download.gif](https://upload-images.jianshu.io/upload_images/3203108-e64c251d147ef9cb.gif?imageMogr2/auto-orient/strip)
 
-###API:
+### API:
 ```
 /// 设置下载并发数， 默认3
 DownloadManager.default.maxDownloadCount = 3
@@ -34,7 +34,7 @@ public func updateDownloading()
 /// 获取总缓存大小 单位：字节
 public func getCacheSize() -> Double
 ```
-###使用：
+### 使用：
 ```
 /// 创建 DownloadModel
 let model = DownloadModel()
@@ -44,7 +44,7 @@ model.model.url = "http://7xqhmn.media1.z0.glb.clouddn.com/femorning-20161106.mp
 /// 下载
 DownloadManager.default.download(model: model)
 ```
-####使用通知获取下载进度和下载状态 name： DownloadProgressNotification
+#### 使用通知获取下载进度和下载状态 name： DownloadProgressNotification
 ```
 /// 注册通知
 private func addNotification() {
@@ -59,7 +59,7 @@ private func addNotification() {
 }
 
 ```
-####设置下载并发数，默认3：
+#### 设置下载并发数，默认3：
 DownloadManager.default.maxDownloadCount = 3
 
 
