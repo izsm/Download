@@ -42,7 +42,6 @@ class ViewTableViewCell: UITableViewCell {
         
         if let url = model.model.url, let model1 = model.getDownloadModel(url: url) {
             stateBtn.setTitle(state(state: model1.state), for: .normal)
-//            progressLabel.text = "\(model1.progress)"
             progressView.update(model: model1)
         } else {
             progressView.update(model: model.model)
