@@ -135,5 +135,12 @@ extension DownloadViewController: UITableViewDelegate, UITableViewDataSource {
         
         return [deleteRowAction]
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.row]
+        if let url = model.model.url {
+            debugPrint(DownloadManager.default.getFile(url: url))
+        }
+    }
 }
 

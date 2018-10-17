@@ -212,6 +212,12 @@ extension DownloadManager {
         }
     }
     
+    /// 获取下载完成的文件路径
+    func getFile(url: String) -> String {
+        guard url.dw_isURL, isExistence(url: url), isCompletion(url: url) else { return "" }
+        return DownloadCachePath + url.dw_getFileName
+    }
+    
     /// 获取总缓存大小 单位：字节
     func getCacheSize() -> Double {
         return DownloadHomeDirectory.dw_getCacheSize
