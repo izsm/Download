@@ -31,6 +31,8 @@ public func getDownloadingModel() -> [DownloadModel]
 public func updateDownloadingStateWithSuspended()
 /// 开启未完成的下载
 public func updateDownloading()
+/// 获取下载完成的文件路径
+func getFile(url: String) -> String
 /// 获取总缓存大小 单位：字节
 public func getCacheSize() -> Double
 ```
