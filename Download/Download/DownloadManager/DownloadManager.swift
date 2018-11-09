@@ -28,9 +28,9 @@ let DownloadCacheModelPath = "DownloadCache/DownloadModelCache"
 
 class DownloadManager: NSObject {
 
-    static let `default` = DownloadManager()
+    public static let `default` = DownloadManager()
     
-    var maxDownloadCount: Int = 3 /// 最大并发数
+    public var maxDownloadCount: Int = 3 /// 最大并发数
     
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.background(withIdentifier: "DownloadBackgroundSessionIdentifier")
@@ -87,7 +87,7 @@ extension DownloadManager {
     }
     
     /// 判断该文件是否下载完成
-    func isCompletion(url: String) -> Bool {
+    public func isCompletion(url: String) -> Bool {
         guard url.dw_isURL else { return false }
         if let model = DownloadModel().getDownloadModel(url: url),
             model.totalLength == getDownloadSize(url: url) {
@@ -97,7 +97,7 @@ extension DownloadManager {
     }
     
     /// 判断该文件是否存在
-    func isExistence(url: String) -> Bool {
+    public func isExistence(url: String) -> Bool {
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: DownloadCachePath)
             return files.contains(url.dw_getFileName)
@@ -107,7 +107,7 @@ extension DownloadManager {
     }
     
     /// 根据url取消/暂停任务
-    func cancelTask(url: String) {
+    public func cancelTask(url: String) {
         guard url.dw_isURL else { return }
         if let task = getTask(url: url) {
             task.suspend()
@@ -123,7 +123,7 @@ extension DownloadManager {
     }
     
     /// 取消/暂停所有任务
-    func cancelAllTask() {
+    public func cancelAllTask() {
         for (_, task) in tasks.values.enumerated() {
             task.suspend()
             task.cancel()
@@ -137,7 +137,7 @@ extension DownloadManager {
     }
     
     /// 根据url删除资源
-    func deleteFile(url: String) {
+    public func deleteFile(url: String) {
         guard url.dw_isURL else { return }
         cancelTask(url: url)
         DownloadModel().delete(url: url)
@@ -152,7 +152,7 @@ extension DownloadManager {
     }
     
     /// 清空所有下载资源
-    func deleteAllFile() {
+    public func deleteAllFile() {
         // 取消所有任务
         cancelAllTask()
         
@@ -162,7 +162,7 @@ extension DownloadManager {
     }
     
     /// 获取下载的数据
-    func getDownloadModels() -> [DownloadModel] {
+    public func getDownloadModels() -> [DownloadModel] {
         let urls: NSMutableArray = NSMutableArray(contentsOfFile: DownloadCacheURLPath) ?? NSMutableArray()
         var models = [DownloadModel]()
         for url in urls {
@@ -178,7 +178,7 @@ extension DownloadManager {
     }
     
     /// 获取下载完成的数据
-    func getDownloadFinishModels() -> [DownloadModel] {
+    public func getDownloadFinishModels() -> [DownloadModel] {
         let models = getDownloadModels().filter {
             return $0.model.state == .completed
         }
@@ -186,7 +186,7 @@ extension DownloadManager {
     }
     
     /// 获取未下载完成的数据
-    func getDownloadingModel() -> [DownloadModel] {
+    public func getDownloadingModel() -> [DownloadModel] {
         let models = getDownloadModels().filter {
             return $0.model.state != .completed
         }
@@ -194,7 +194,7 @@ extension DownloadManager {
     }
     
     /// 将未完成的下载状态改为.suspended
-    func updateDownloadingStateWithSuspended() {
+    public func updateDownloadingStateWithSuspended() {
         for model in getDownloadingModel() {
             if let url = model.model.url {
                 model.model.state = .suspended
@@ -204,7 +204,7 @@ extension DownloadManager {
     }
     
     /// 开启未完成的下载
-    func updateDownloading() {
+    public func updateDownloading() {
         for model in getDownloadingModel() {
             if model.model.state != .start, model.model.state != .waiting {
                 DownloadManager.default.download(model: model)
@@ -213,13 +213,13 @@ extension DownloadManager {
     }
     
     /// 获取下载完成的文件路径
-    func getFile(url: String) -> String {
+    public func getFile(url: String) -> String {
         guard url.dw_isURL, isExistence(url: url), isCompletion(url: url) else { return "" }
         return DownloadCachePath + url.dw_getFileName
     }
     
     /// 获取总缓存大小 单位：字节
-    func getCacheSize() -> Double {
+    public func getCacheSize() -> Double {
         return DownloadHomeDirectory.dw_getCacheSize
     }
 }

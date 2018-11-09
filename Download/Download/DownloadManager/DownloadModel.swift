@@ -15,7 +15,7 @@ class DownloadModel: NSObject {
 
     var stream: OutputStream? /// 流
     
-    var states: DownloadState = .default {
+    public var states: DownloadState = .default {
         didSet {
             model.state = states
             if let url = model.url {
@@ -27,36 +27,41 @@ class DownloadModel: NSObject {
         }
     }
     
-    var model: DownloadDescModel = DownloadDescModel()
+    public var model: DownloadDescModel = DownloadDescModel()
     
-    func getDownloadModel(url: String) -> DownloadDescModel? {
+    public func getDownloadModel(url: String) -> DownloadDescModel? {
         return DownloadCache<DownloadDescModel>().object(forKey: url)
     }
     
-    func save(url: String, descModel: DownloadDescModel) {
+    public func save(url: String, descModel: DownloadDescModel) {
         DownloadCache<DownloadDescModel>().setObject(object: descModel, forKey: url)
     }
     
-    func delete(url: String) {
+    public func delete(url: String) {
         DownloadCache<DownloadDescModel>().removeObiect(forKey: url)
     }
 }
 
 class DownloadDescModel: Codable {
-    var url: String? /// 下载地址
     
-    var totalLength: Int = 0 /// 获得服务器这次请求 返回数据的总长度
-    var receivedSize: Int = 0 /// 已经下载的长度
+    /** 必须有的属性 -- 开始 */
+    public var url: String? /// 下载地址
+    
+    public var totalLength: Int = 0 /// 获得服务器这次请求 返回数据的总长度
+    public var receivedSize: Int = 0 /// 已经下载的长度
     
     /// 下载进度
-    var progress: Double = 0.0 {
+    public var progress: Double = 0.0 {
         didSet {
             NotificationCenter.default.post(name: DownloadProgressNotification, object: self)
         }
     }
     
-    var state: DownloadState = .default
+    public var state: DownloadState = .default
+    /** 必须有的属性 -- 结束 */
     
-    var name: String?
+    /** 可选属性 -- 开始 */
+    /// 例如 下载文件的名称、描述、图片 ...
+    public var name: String?
 }
 
